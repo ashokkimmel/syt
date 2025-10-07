@@ -7,8 +7,8 @@ import qualified Data.Typeclass.Functor as F
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Applicative typeclass
-data Applicative f = Applicative
-  { functorDict :: F.Functor f                                -- ^ Associated Functor dictionary
+data ApplicativeDict f = ApplicativeDict
+  { functorDict :: F.FunctorDict f                                -- ^ Associated Functor dictionary
   , pure        :: forall a. a -> f a                         -- ^ Lift a value
   , ap          :: forall a b. f (a -> b) -> f a -> f b      -- ^ Sequential application (<*>)
   , liftA2      :: forall a b c. (a -> b -> c) -> f a -> f b -> f c  -- ^ Lift a binary function
@@ -17,11 +17,11 @@ data Applicative f = Applicative
   }
 
 -- | Construct an Applicative dictionary from pure and ap
-mkApplicative :: F.Functor f 
+mkApplicative :: F.FunctorDict f 
               -> (forall a. a -> f a) 
               -> (forall a b. f (a -> b) -> f a -> f b) 
-              -> Applicative f
-mkApplicative fdict pureFunc apFunc = Applicative
+              -> ApplicativeDict f
+mkApplicative fdict pureFunc apFunc = ApplicativeDict
   { functorDict = fdict
   , pure        = pureFunc
   , ap          = apFunc
@@ -31,8 +31,8 @@ mkApplicative fdict pureFunc apFunc = Applicative
   }
 
 -- | Standard Applicative dictionary for any type with a Prelude.Applicative instance
-fromPreludeApplicative :: Prelude.Applicative f => Applicative f
-fromPreludeApplicative = Applicative
+fromPreludeApplicative :: Prelude.Applicative f => ApplicativeDict f
+fromPreludeApplicative = ApplicativeDict
   { functorDict = F.fromPreludeFunctor
   , pure        = Prelude.pure
   , ap          = (Prelude.<*>)

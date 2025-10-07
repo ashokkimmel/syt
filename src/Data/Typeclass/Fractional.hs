@@ -7,16 +7,16 @@ import qualified Data.Typeclass.Num as N
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Fractional typeclass
-data Fractional a = Fractional
-  { numDict :: N.Num a                  -- ^ Associated Num dictionary
+data FractionalDict a = FractionalDict
+  { numDict :: N.NumDict a                  -- ^ Associated Num dictionary
   , divide  :: a -> a -> a              -- ^ Fractional division (/)
   , recip   :: a -> a                   -- ^ Reciprocal
   , fromRational :: Prelude.Rational -> a  -- ^ Convert from Rational
   }
 
 -- | Construct a Fractional dictionary from division and fromRational
-mkFractional :: N.Num a -> (a -> a -> a) -> (Prelude.Rational -> a) -> Fractional a
-mkFractional ndict divFunc fromRat = Fractional
+mkFractional :: N.NumDict a -> (a -> a -> a) -> (Prelude.Rational -> a) -> FractionalDict a
+mkFractional ndict divFunc fromRat = FractionalDict
   { numDict = ndict
   , divide  = divFunc
   , recip   = \x -> fromRat 1 `divFunc` x
@@ -24,8 +24,8 @@ mkFractional ndict divFunc fromRat = Fractional
   }
 
 -- | Standard Fractional dictionary for any type with a Prelude.Fractional instance
-fromPreludeFractional :: Prelude.Fractional a => Fractional a
-fromPreludeFractional = Fractional
+fromPreludeFractional :: Prelude.Fractional a => FractionalDict a
+fromPreludeFractional = FractionalDict
   { numDict = N.fromPreludeNum
   , divide  = (Prelude./)
   , recip   = Prelude.recip

@@ -8,9 +8,9 @@ import qualified Data.Typeclass.Enum as E
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Integral typeclass
-data Integral a = Integral
-  { realDict :: R.Real a                           -- ^ Associated Real dictionary
-  , enumDict :: E.Enum a                           -- ^ Associated Enum dictionary
+data IntegralDict a = IntegralDict
+  { realDict :: R.RealDict a                           -- ^ Associated Real dictionary
+  , enumDict :: E.EnumDict a                           -- ^ Associated Enum dictionary
   , quot     :: a -> a -> a                        -- ^ Integer division truncated toward zero
   , rem      :: a -> a -> a                        -- ^ Integer remainder satisfying (x `quot` y)*y + (x `rem` y) == x
   , div      :: a -> a -> a                        -- ^ Integer division truncated toward negative infinity
@@ -21,8 +21,8 @@ data Integral a = Integral
   }
 
 -- | Standard Integral dictionary for any type with a Prelude.Integral instance
-fromPreludeIntegral :: Prelude.Integral a => Integral a
-fromPreludeIntegral = Integral
+fromPreludeIntegral :: Prelude.Integral a => IntegralDict a
+fromPreludeIntegral = IntegralDict
   { realDict  = R.fromPreludeReal
   , enumDict  = E.fromPreludeEnum
   , quot      = Prelude.quot

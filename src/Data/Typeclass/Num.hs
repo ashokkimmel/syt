@@ -6,7 +6,7 @@ module Data.Typeclass.Num where
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Num typeclass
-data Num a = Num
+data NumDict a = NumDict
   { add      :: a -> a -> a  -- ^ Addition (+)
   , subtract :: a -> a -> a  -- ^ Subtraction (-)
   , multiply :: a -> a -> a  -- ^ Multiplication (*)
@@ -17,8 +17,8 @@ data Num a = Num
   }
 
 -- | Standard Num dictionary for any type with a Prelude.Num instance
-fromPreludeNum :: Prelude.Num a => Num a
-fromPreludeNum = Num
+fromPreludeNum :: Prelude.Num a => NumDict a
+fromPreludeNum = NumDict
   { add      = (Prelude.+)
   , subtract = (Prelude.-)
   , multiply = (Prelude.*)

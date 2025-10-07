@@ -7,8 +7,8 @@ import qualified Data.Typeclass.Fractional as F
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Floating typeclass
-data Floating a = Floating
-  { fractionalDict :: F.Fractional a  -- ^ Associated Fractional dictionary
+data FloatingDict a = FloatingDict
+  { fractionalDict :: F.FractionalDict a  -- ^ Associated Fractional dictionary
   , pi             :: a               -- ^ Mathematical constant pi
   , exp            :: a -> a          -- ^ Exponential function
   , log            :: a -> a          -- ^ Natural logarithm
@@ -30,8 +30,8 @@ data Floating a = Floating
   }
 
 -- | Standard Floating dictionary for any type with a Prelude.Floating instance
-fromPreludeFloating :: Prelude.Floating a => Floating a
-fromPreludeFloating = Floating
+fromPreludeFloating :: Prelude.Floating a => FloatingDict a
+fromPreludeFloating = FloatingDict
   { fractionalDict = F.fromPreludeFractional
   , pi             = Prelude.pi
   , exp            = Prelude.exp

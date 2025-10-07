@@ -6,7 +6,7 @@ module Data.Typeclass.Enum where
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Enum typeclass
-data Enum a = Enum
+data EnumDict a = EnumDict
   { succ         :: a -> a                           -- ^ Successor
   , pred         :: a -> a                           -- ^ Predecessor
   , toEnum       :: Prelude.Int -> a                 -- ^ Convert from Int
@@ -18,8 +18,8 @@ data Enum a = Enum
   }
 
 -- | Standard Enum dictionary for any type with a Prelude.Enum instance
-fromPreludeEnum :: Prelude.Enum a => Enum a
-fromPreludeEnum = Enum
+fromPreludeEnum :: Prelude.Enum a => EnumDict a
+fromPreludeEnum = EnumDict
   { succ         = Prelude.succ
   , pred         = Prelude.pred
   , toEnum       = Prelude.toEnum

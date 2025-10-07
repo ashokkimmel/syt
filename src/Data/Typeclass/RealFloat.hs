@@ -8,9 +8,9 @@ import qualified Data.Typeclass.Floating as Fl
 import qualified Prelude
 
 -- | A dictionary containing the methods of the RealFloat typeclass
-data RealFloat a = RealFloat
-  { realFracDict   :: RF.RealFrac a                       -- ^ Associated RealFrac dictionary
-  , floatingDict   :: Fl.Floating a                       -- ^ Associated Floating dictionary
+data RealFloatDict a = RealFloatDict
+  { realFracDict   :: RF.RealFracDict a                       -- ^ Associated RealFrac dictionary
+  , floatingDict   :: Fl.FloatingDict a                       -- ^ Associated Floating dictionary
   , floatRadix     :: a -> Prelude.Integer                -- ^ Radix of the representation
   , floatDigits    :: a -> Prelude.Int                    -- ^ Number of digits in the mantissa
   , floatRange     :: a -> (Prelude.Int, Prelude.Int)     -- ^ Range of the exponent
@@ -28,8 +28,8 @@ data RealFloat a = RealFloat
   }
 
 -- | Standard RealFloat dictionary for any type with a Prelude.RealFloat instance
-fromPreludeRealFloat :: Prelude.RealFloat a => RealFloat a
-fromPreludeRealFloat = RealFloat
+fromPreludeRealFloat :: Prelude.RealFloat a => RealFloatDict a
+fromPreludeRealFloat = RealFloatDict
   { realFracDict   = RF.fromPreludeRealFrac
   , floatingDict   = Fl.fromPreludeFloating
   , floatRadix     = Prelude.floatRadix

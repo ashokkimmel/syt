@@ -8,7 +8,7 @@ import qualified Data.Typeclass.Monoid as M
 import qualified Data.Foldable as DF
 
 -- | A dictionary containing the methods of the Foldable typeclass
-data Foldable t = Foldable
+data FoldableDict t = FoldableDict
   { fold    :: forall m. Prelude.Monoid m => t m -> m                          -- ^ Combine elements with monoid
   , foldMap :: forall m a. Prelude.Monoid m => (a -> m) -> t a -> m            -- ^ Map and combine
   , foldr   :: forall a b. (a -> b -> b) -> b -> t a -> b                       -- ^ Right-associative fold
@@ -28,8 +28,8 @@ data Foldable t = Foldable
   }
 
 -- | Standard Foldable dictionary for any type with a Prelude.Foldable instance
-fromPreludeFoldable :: Prelude.Foldable t => Foldable t
-fromPreludeFoldable = Foldable
+fromPreludeFoldable :: Prelude.Foldable t => FoldableDict t
+fromPreludeFoldable = FoldableDict
   { fold    = DF.fold
   , foldMap = DF.foldMap
   , foldr   = Prelude.foldr

@@ -14,7 +14,7 @@ import qualified Prelude
 example1 :: Prelude.IO ()
 example1 = do
   Prelude.putStrLn "Example 1: Using Eq dictionary"
-  let intEq = E.fromPreludeEq :: E.Eq Prelude.Int
+  let intEq = E.fromPreludeEq :: E.EqDict Prelude.Int
   Prelude.print (E.eq intEq 5 5)    -- True
   Prelude.print (E.neq intEq 5 10)  -- True
 
@@ -30,7 +30,7 @@ example2 = do
 example3 :: Prelude.IO ()
 example3 = do
   Prelude.putStrLn "\nExample 3: Using Ord dictionary"
-  let intOrd = O.fromPreludeOrd :: O.Ord Prelude.Int
+  let intOrd = O.fromPreludeOrd :: O.OrdDict Prelude.Int
   Prelude.print (O.lt intOrd 5 10)         -- True
   Prelude.print (O.max intOrd 5 10)        -- 10
   Prelude.print (O.compare intOrd 5 10)    -- LT
@@ -39,7 +39,7 @@ example3 = do
 example4 :: Prelude.IO ()
 example4 = do
   Prelude.putStrLn "\nExample 4: Using Num dictionary"
-  let intNum = N.fromPreludeNum :: N.Num Prelude.Int
+  let intNum = N.fromPreludeNum :: N.NumDict Prelude.Int
   Prelude.print (N.add intNum 5 10)         -- 15
   Prelude.print (N.multiply intNum 3 7)     -- 21
   Prelude.print (N.abs intNum (N.negate intNum 5)) -- 5
@@ -48,7 +48,7 @@ example4 = do
 example5 :: Prelude.IO ()
 example5 = do
   Prelude.putStrLn "\nExample 5: Using Monoid dictionary for lists"
-  let listMonoid = Mon.fromPreludeMonoid :: Mon.Monoid [Prelude.Int]
+  let listMonoid = Mon.fromPreludeMonoid :: Mon.MonoidDict [Prelude.Int]
   Prelude.print (Mon.mappend listMonoid [1,2] [3,4])  -- [1,2,3,4]
   Prelude.print (Mon.mconcat listMonoid [[1], [2], [3]])  -- [1,2,3]
 
@@ -56,7 +56,7 @@ example5 = do
 example6 :: Prelude.IO ()
 example6 = do
   Prelude.putStrLn "\nExample 6: Using Functor dictionary for Maybe"
-  let maybeFunctor = F.fromPreludeFunctor :: F.Functor Prelude.Maybe
+  let maybeFunctor = F.fromPreludeFunctor :: F.FunctorDict Prelude.Maybe
   Prelude.print (F.fmap maybeFunctor (Prelude.+ 1) (Prelude.Just 5))  -- Just 6
   Prelude.print (F.fmap maybeFunctor (Prelude.+ 1) Prelude.Nothing)   -- Nothing
 

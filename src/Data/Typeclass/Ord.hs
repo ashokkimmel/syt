@@ -7,8 +7,8 @@ import qualified Data.Typeclass.Eq as E
 import qualified Prelude
 
 -- | A dictionary containing the methods of the Ord typeclass
-data Ord a = Ord
-  { eqDict  :: E.Eq a                    -- ^ Associated Eq dictionary
+data OrdDict a = OrdDict
+  { eqDict  :: E.EqDict a                    -- ^ Associated Eq dictionary
   , compare :: a -> a -> Prelude.Ordering    -- ^ Three-way comparison
   , lt      :: a -> a -> Prelude.Bool        -- ^ Less than (<)
   , lte     :: a -> a -> Prelude.Bool        -- ^ Less than or equal (<=)
@@ -19,8 +19,8 @@ data Ord a = Ord
   }
 
 -- | Construct an Ord dictionary from compare and an Eq dictionary
-mkOrd :: E.Eq a -> (a -> a -> Prelude.Ordering) -> Ord a
-mkOrd eqD cmp = Ord
+mkOrd :: E.EqDict a -> (a -> a -> Prelude.Ordering) -> OrdDict a
+mkOrd eqD cmp = OrdDict
   { eqDict  = eqD
   , compare = cmp
   , lt      = \x y -> cmp x y Prelude.== Prelude.LT
@@ -36,8 +36,8 @@ mkOrd eqD cmp = Ord
   }
 
 -- | Standard Ord dictionary for any type with a Prelude.Ord instance
-fromPreludeOrd :: Prelude.Ord a => Ord a
-fromPreludeOrd = Ord
+fromPreludeOrd :: Prelude.Ord a => OrdDict a
+fromPreludeOrd = OrdDict
   { eqDict  = E.fromPreludeEq
   , compare = Prelude.compare
   , lt      = (Prelude.<)

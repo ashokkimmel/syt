@@ -1,0 +1,16 @@
+dist-newstyle/
+dist/
+.cabal-sandbox/
+cabal.sandbox.config
+*.hi
+*.o
+*.prof
+*.aux
+*.hp
+*.eventlog
+.stack-work/
+.ghc.environment.*
+*.swp
+*.swo
+*~
+.DS_Store

@@ -64,7 +64,15 @@ library
     -- other-modules:
 
     -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
+    other-extensions:
+        AllowAmbiguousTypes
+        ConstraintKinds
+        DataKinds
+        KindSignatures
+        MultiParamTypeClasses
+        PolyKinds
+        RankNTypes
+        TypeFamilies
 
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.21.0.0
@@ -86,7 +94,14 @@ test-suite syt-test
     -- other-modules:
 
     -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
+    other-extensions:
+        AllowAmbiguousTypes
+        FlexibleContexts
+        FlexibleInstances
+        MultiParamTypeClasses
+        ScopedTypeVariables
+        TypeApplications
+        UndecidableInstances
 
     -- The interface type and version of the test suite.
     type:             exitcode-stdio-1.0

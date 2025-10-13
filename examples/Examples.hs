@@ -1,4 +1,5 @@
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE TypeApplications #-}
 
 -- | Example usage of typeclass dictionaries
 module Main where
@@ -8,6 +9,7 @@ import qualified Data.Typeclass.Ord as O
 import qualified Data.Typeclass.Num as N
 import qualified Data.Typeclass.Monoid as Mon
 import qualified Data.Typeclass.Functor as F
+import qualified Data.Typeclass.Dict as D
 import qualified Prelude
 
 -- Example 1: Using Eq dictionary
@@ -60,6 +62,20 @@ example6 = do
   Prelude.print (F.fmap maybeFunctor (Prelude.+ 1) (Prelude.Just 5))  -- Just 6
   Prelude.print (F.fmap maybeFunctor (Prelude.+ 1) Prelude.Nothing)   -- Nothing
 
+-- Example 7: Using ToDict and DictConversion
+example7 :: Prelude.IO ()
+example7 = do
+  Prelude.putStrLn "\nExample 7: Using ToDict type family and DictConversion class"
+  -- Use toDict to automatically convert from typeclass constraint to dictionary
+  let eqDict = D.toDict @Prelude.Eq @Prelude.Int
+  Prelude.print (E.eq eqDict 42 42)    -- True
+  Prelude.print (E.neq eqDict 42 100)  -- True
+  
+  -- ToDict maps typeclass to dictionary type, allowing type-level programming
+  let useDict :: D.ToDict Prelude.Ord Prelude.Int -> Prelude.Int
+      useDict dict = O.max dict 10 20
+  Prelude.print (useDict (D.toDict @Prelude.Ord @Prelude.Int))  -- 20
+
 main :: Prelude.IO ()
 main = do
   Prelude.putStrLn "=== Typeclass Dictionary Examples ==="
@@ -69,4 +85,5 @@ main = do
   example4
   example5
   example6
+  example7
   Prelude.putStrLn "\n=== All examples completed ==="
